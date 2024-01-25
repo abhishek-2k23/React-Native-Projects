@@ -24,4 +24,4 @@ Follow these steps to run the Password Generator project locally:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/password-generator.git
+   git clone https://github.com/abhishek-2k23/React-Native-Projects/tree/main/PasswordGenerator

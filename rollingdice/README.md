@@ -41,7 +41,7 @@ npm install
 
 4. **Run the Application:**
 npx react-native run-android
-or
+# or
 npx react-native run-ios
 
 

@@ -31,21 +31,21 @@ Follow these steps to run the Password Generator project locally:
    ```bash
    cd PasswordGenerator
 
-
 3. **Install Dependencies:**
 
    ```bash
    npm install
 
-
 4. **Run the Application:**
-   ```bash
-   npx react-native run-android
-# or
-   ```bash
-   npx react-native run-ios
+      ```bash
+      npx react-native run-android
 
-#Additional Notes
+   # or 
+
+      ```bash
+      npx react-native run-ios
+
+## Additional Notes
 
 Feel free to explore and customize the application as per your requirements. If you encounter any issues or have suggestions for improvement, please submit them through the repository's issue tracker.
 

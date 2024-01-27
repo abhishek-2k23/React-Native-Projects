@@ -28,5 +28,27 @@ Throughout the development of this project, I gained insights into handling imag
 
 To run the Rolling Dice mobile application locally, follow these steps:
 
-**Clone the Repository:**
+1. **Clone the Repository:**
 Git clone : https://github.com/abhishek-2k23/React-Native-Projects/tree/main/rollingdice
+
+2. **Navigate to the Project Directory:**
+cd rollingdice
+
+
+3. **Install Dependencies:**
+npm install
+
+
+4. **Run the Application:**
+npx react-native run-android
+or
+npx react-native run-ios
+
+
+
+## Additional Notes
+
+Feel free to explore and customize the application as per your requirements. If you encounter any issues or have suggestions for improvement, please submit them through the repository's issue tracker.
+
+Happy rolling! 🎲
+

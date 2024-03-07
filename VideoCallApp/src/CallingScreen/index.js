@@ -72,6 +72,7 @@ const CallingScreen = () => {
     };
 
     const makeCall = async () => {
+      console.log("calling the user whose name is : ", user.user_name);
       call.current = await voximplant.call(user.user_name, callSettings);
       subscribeToCallEvents();
     };

@@ -11,6 +11,7 @@ import {
 import {ACC_NAME, APP_NAME} from '../Constants';
 
 import {Voximplant} from 'react-native-voximplant';
+
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +25,8 @@ const LoginScreen = () => {
       const status = await voximplant.getClientState();
       if (status === Voximplant.ClientState.DISCONNECTED) {
         await voximplant.connect();
-      } else if (status === Voximplant.ClientState.LOGGED_IN) {  //user already signed in 
+      } else if (status === Voximplant.ClientState.LOGGED_IN) {
+        //user already signed in
         redirectHome();
       }
     };
@@ -36,6 +38,7 @@ const LoginScreen = () => {
   const signIn = async () => {
     try {
       const fqUsername = `${username}@${APP_NAME}.${ACC_NAME}.voximplant.com`;
+
       await voximplant.login(fqUsername, password);
 
       redirectHome();

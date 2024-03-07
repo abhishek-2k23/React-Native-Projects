@@ -1,11 +1,21 @@
 export const dummyContacts = [
   {
     user_id: '1',
+    user_name: 'user1',
+    user_display_name: 'User1',
+  },
+  {
+    user_id: '2',
+    user_name: 'user2',
+    user_display_name: 'User2',
+  },
+  {
+    user_id: '11',
     user_name: 'iamabhishek',
     user_display_name: 'Abhishek',
   },
   {
-    user_id: '2',
+    user_id: '12',
     user_name: 'iamnishant',
     user_display_name: 'Nishant',
   },
@@ -50,7 +60,7 @@ export const dummyContacts = [
     user_display_name: 'David Dobrik',
   },
   {
-    user_id: '11',
+    user_id: '13',
     user_name: 'Logan',
     user_display_name: 'Logan Paul',
   },

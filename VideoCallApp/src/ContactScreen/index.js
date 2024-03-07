@@ -11,6 +11,8 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import {Voximplant} from 'react-native-voximplant';
 import {dummyContacts} from '../assets/Contacts/contacts';
+import Icon from 'react-native-vector-icons/FontAwesome5'
+import Feather from 'react-native-vector-icons/Feather';
 
 const ContactScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -41,20 +43,21 @@ const ContactScreen = () => {
 
   //on user_name press calling the user
   const callUser = user => {
+    console.log("calling the user : ", user);
     navigation.navigate('Calling', {user});
   };
 
-  if(dummyContacts.length === 0 ){
+  if (dummyContacts.length === 0) {
     return (
-        <View>
-            <Text>NO contacts</Text>
-            <Pressable onPress={console.log("Add contact")}>
-                <View>
-                    <Text>Create Contact</Text>
-                </View>
-            </Pressable>
-        </View>
-    )
+      <View>
+        <Text>NO contacts</Text>
+        <Pressable onPress={console.log('Add contact')}>
+          <View>
+            <Text>Create Contact</Text>
+          </View>
+        </Pressable>
+      </View>
+    );
   }
 
   return (
@@ -69,7 +72,11 @@ const ContactScreen = () => {
         data={filteredContacts}
         renderItem={({item}) => (
           <Pressable onPress={() => callUser(item)}>
-            <Text style={styles.contactName}>{item.user_display_name}</Text>
+            <View style={{flex: 1, flexDirection: 'row', gap: 15, alignItems: 'center'}}>
+
+              <Text style={styles.contactName}>{item.user_display_name}</Text>
+              <Icon name='phone-alt' size={15} color='#01ff10' />
+            </View>
           </Pressable>
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

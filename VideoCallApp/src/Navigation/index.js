@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CallScreen from '../CallScreen';
 import ContactScreen from '../ContactScreen';
 import CallingScreen from '../CallingScreen';
-// import IncomingCallScreen from '../screens/IncomingCallScreen';
+import IncomingCallScreen from '../IncomingCallScreen';
 import LoginScreen from '../HomeScreen/Login';
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ const Navigation = () => {
         <Stack.Group screenOptions={{headerShown: false}}>
           <Stack.Screen name="Call" component={CallScreen} />
           <Stack.Screen name="Calling" component={CallingScreen} />
-          {/* <Stack.Screen name="IncomingCall" component={IncomingCallScreen} /> */}
+          <Stack.Screen name="IncomingCall" component={IncomingCallScreen} />
         </Stack.Group> 
       </Stack.Navigator>
     </NavigationContainer>

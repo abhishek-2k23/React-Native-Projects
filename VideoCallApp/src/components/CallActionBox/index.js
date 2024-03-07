@@ -22,7 +22,7 @@ const CallActionBox = ({onHangupPress}) => {
   return (
     <View style={styles.buttonsContainer}>
       <Pressable onPress={onReverseCamera} style={styles.iconButton}>
-        <Ionicons name="ios-camera-reverse" size={30} color={'white'} />
+        <Ionicons name="camera-reverse-outline" size={30} color={'white'} />
       </Pressable>
 
       <Pressable onPress={onToggleCamera} style={styles.iconButton}>

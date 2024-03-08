@@ -23,6 +23,7 @@ const CallingScreen = () => {
   const [callStatus, setCallStatus] = useState('Initializing...');
   const [localVideoStreamId, setLocalVideoStreamId] = useState('');
   const [remoteVideoStreamId, setRemoteVideoStreamId] = useState('');
+  const [audioDevice, setAudioDevice] = useState('Speaker');
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -33,6 +34,14 @@ const CallingScreen = () => {
 
   const call = useRef(incomingCall);
   const endpoint = useRef(null);
+
+  //for audio device setup
+  const AudioDeviceManager =
+    Voximplant.Hardware.AudioDeviceManager.getInstance();
+
+  const selectAudioDevice = async () => {
+    await AudioDeviceManager.selectAudioDevice(audioDevice);
+  }
 
   const goBack = () => {
     navigation.pop();
@@ -70,7 +79,8 @@ const CallingScreen = () => {
         receiveVideo: true,
       },
     };
-
+    //select the audio device : by default speaker
+    selectAudioDevice();
     const makeCall = async () => {
       console.log("calling the user whose name is : ", user.user_name);
       call.current = await voximplant.call(user.user_name, callSettings);

@@ -27,7 +27,7 @@ const CallActionBox = ({onHangupPress}) => {
 
       <Pressable onPress={onToggleCamera} style={styles.iconButton}>
         <MaterialIcons
-          name={isCameraOn ? 'camera-off' : 'camera'}
+          name={!isCameraOn ? 'camera-off' : 'camera'}
           size={30}
           color={'white'}
         />
@@ -35,7 +35,7 @@ const CallActionBox = ({onHangupPress}) => {
 
       <Pressable onPress={onToggleMicrophone} style={styles.iconButton}>
         <MaterialIcons
-          name={isMicOn ? 'microphone-off' : 'microphone'}
+          name={!isMicOn ? 'microphone-off' : 'microphone'}
           size={30}
           color={'white'}
         />

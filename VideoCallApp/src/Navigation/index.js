@@ -7,16 +7,18 @@ import ContactScreen from '../ContactScreen';
 import CallingScreen from '../CallingScreen';
 import IncomingCallScreen from '../IncomingCallScreen';
 import LoginScreen from '../HomeScreen/Login';
+import Video from '../components/VideoComponent/Video';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName='Video'>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Contacts" component={ContactScreen} />
-
+        <Stack.Screen name="Video" component={Video} />
+        
         <Stack.Group screenOptions={{headerShown: false}}>
           <Stack.Screen name="Call" component={CallScreen} />
           <Stack.Screen name="Calling" component={CallingScreen} />

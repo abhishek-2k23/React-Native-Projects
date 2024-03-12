@@ -2,7 +2,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import sample from '../../assets/Video/sample.mp4';
 import {useState} from 'react';
-const Video = () => {
+import {Video} from 'react-native-video'
+const VideoComponent = () => {
   const [videoEnd, setVideoEnd] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -45,7 +46,7 @@ const Video = () => {
   );
 };
 
-export default Video;
+export default VideoComponent;
 
 const styles = StyleSheet.create({
     container : {

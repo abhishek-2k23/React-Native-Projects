@@ -7,29 +7,35 @@ import {
   PermissionsAndroid,
   Alert,
   Platform,
+  BackHandler,
 } from 'react-native';
 import CallActionBox from '../components/CallActionBox';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Voximplant} from 'react-native-voximplant';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+//permissions we need for video call
 const permissions = [
   PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
   PermissionsAndroid.PERMISSIONS.CAMERA,
 ];
 
+//start
 const CallingScreen = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [callStatus, setCallStatus] = useState('Initializing...');
   const [localVideoStreamId, setLocalVideoStreamId] = useState('');
   const [remoteVideoStreamId, setRemoteVideoStreamId] = useState('');
   const [audioDevice, setAudioDevice] = useState('Speaker');
+  const [isMini, setIsMini] = useState(false);
 
   const navigation = useNavigation();
   const route = useRoute();
 
   const {user, call: incomingCall, isIncomingCall} = route?.params;
 
+  //instance of voximplant
   const voximplant = Voximplant.getInstance();
 
   const call = useRef(incomingCall);
@@ -41,12 +47,15 @@ const CallingScreen = () => {
 
   const selectAudioDevice = async () => {
     await AudioDeviceManager.selectAudioDevice(audioDevice);
-  }
-
-  const goBack = () => {
-    navigation.pop();
   };
 
+  //on going back
+  const goBack = () => {
+    navigation.pop();
+    setIsMini(true);
+  };
+
+  //as move to call gets the permission
   useEffect(() => {
     const getPermissions = async () => {
       const granted = await PermissionsAndroid.requestMultiple(permissions);
@@ -66,8 +75,10 @@ const CallingScreen = () => {
     } else {
       setPermissionGranted(true);
     }
+    // setIsMini(false);
   }, []);
 
+  //if no permission return else call
   useEffect(() => {
     if (!permissionGranted) {
       return;
@@ -79,10 +90,12 @@ const CallingScreen = () => {
         receiveVideo: true,
       },
     };
+
     //select the audio device : by default speaker
     selectAudioDevice();
+
     const makeCall = async () => {
-      console.log("calling the user whose name is : ", user.user_name);
+      console.log('calling the user whose name is : ', user.user_name);
       call.current = await voximplant.call(user.user_name, callSettings);
       subscribeToCallEvents();
     };
@@ -155,35 +168,55 @@ const CallingScreen = () => {
     call.current.hangup();
   };
 
+  //set call visible in async storage
+  async function setUserVisible(){
+    await AsyncStorage.setItem('callVisible', true);
+    navigation.navigate('Contacts');
+  }
+  
+  if(callStatus === 'Initializing...'){
+    return null;
+  }else{
+    setUserVisible();
+  }
   return (
+    
     <View style={styles.page}>
-      <Pressable onPress={goBack} style={styles.backButton}>
+      {/* <Pressable onPress={goBack} style={styles.backButton}>
         <Ionicons name="chevron-back" color="white" size={25} />
-      </Pressable>
+      </Pressable> */}
 
       <Voximplant.VideoView
         videoStreamId={remoteVideoStreamId}
         style={styles.remoteVideo}
       />
 
-      <Voximplant.VideoView
+      {/* <Voximplant.VideoView
         videoStreamId={localVideoStreamId}
         style={styles.localVideo}
-      />
+      /> */}
 
-      <View style={styles.cameraPreview}>
+      {/* <View style={styles.cameraPreview}>
         <Text style={styles.name}>{user?.user_display_name}</Text>
         <Text style={styles.phoneNumber}>{callStatus}</Text>
       </View>
 
-      <CallActionBox onHangupPress={onHangupPress} />
+      <CallActionBox onHangupPress={onHangupPress} /> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  miniView: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 150,
+    height: 300,
+  },
   page: {
-    height: '100%',
+    height: 250, 
+    width: 140,
     backgroundColor: '#7b4e80',
   },
   cameraPreview: {

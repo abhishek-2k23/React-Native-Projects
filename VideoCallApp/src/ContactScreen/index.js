@@ -11,15 +11,23 @@ import {
 import {useNavigation} from '@react-navigation/core';
 import {Voximplant} from 'react-native-voximplant';
 import {dummyContacts} from '../assets/Contacts/contacts';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
+import CallingScreen from '../CallingScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ContactScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredContacts, setFilteredContacts] = useState(dummyContacts);
+  const [visibleUser, setVisibleUser] = useState(false);
 
   const navigation = useNavigation();
   const voximplant = Voximplant.getInstance();
+
+  const getCallVisibleStatus = async() => {
+    const callVisible = await AsyncStorage.getItem('callVisible');
+    setVisibleUser(callVisible);
+  }
 
   useEffect(() => {
     voximplant.on(Voximplant.ClientEvents.IncomingCall, incomingCallEvent => {
@@ -43,7 +51,7 @@ const ContactScreen = () => {
 
   //on user_name press calling the user
   const callUser = user => {
-    console.log("calling the user : ", user);
+    console.log('calling the user : ', user);
     navigation.navigate('Calling', {user});
   };
 
@@ -62,6 +70,7 @@ const ContactScreen = () => {
 
   return (
     <View style={styles.page}>
+      {visibleUser && <View style={styles.callingScreen}> <CallingScreen /></View>}
       <TextInput
         value={searchTerm}
         onChangeText={setSearchTerm}
@@ -72,10 +81,15 @@ const ContactScreen = () => {
         data={filteredContacts}
         renderItem={({item}) => (
           <Pressable onPress={() => callUser(item)}>
-            <View style={{flex: 1, flexDirection: 'row', gap: 15, alignItems: 'center'}}>
-
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                gap: 15,
+                alignItems: 'center',
+              }}>
               <Text style={styles.contactName}>{item.user_display_name}</Text>
-              <Icon name='phone-alt' size={15} color='#01ff10' />
+              <Icon name="phone-alt" size={15} color="#01ff10" />
             </View>
           </Pressable>
         )}
@@ -105,6 +119,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  callingScreen: {
+    position: 'absolute',
+    top: 10, 
+    right: 10, 
+    width: 190, 
+    height: 250, 
+    backgroundColor: 'red',
+  }
 });
 
 export default ContactScreen;

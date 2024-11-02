@@ -2,7 +2,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import Suggested from '../suggested'
 import Liked from '../liked'
 import Library from '../library'
-import { Text, View } from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 export default function ForYouTabs(){

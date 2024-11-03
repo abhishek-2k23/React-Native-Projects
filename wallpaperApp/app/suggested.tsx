@@ -1,7 +1,6 @@
-import { View, Text, Button } from "react-native"
+import { View, Button } from "react-native"
 import React, { useState } from "react"
 import DownloadPhoto from "@/components/src/DownloadPhoto"
-import { SafeAreaView } from "react-native-safe-area-context"
 
 const Suggested = () => {
   const [showDownloadPhoto, setShowDownloadPhoto] = useState(false)

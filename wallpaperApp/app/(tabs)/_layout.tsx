@@ -9,17 +9,17 @@ export default function Layout() {
     <SafeAreaView style={{flex:1}}>
     <Tabs screenOptions={{ tabBarActiveTintColor: 'blue', headerShown:false}}>
       <Tabs.Screen
-        name="index"
+        name="foryou"
         options={{
-          title: "For you",
-          tabBarIcon: ({ color }) => <FontAwesome name="home" size={28} color={color}/>,
+          title: "foryou",
+          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} color={color}/>,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="index"
         options={{
-          title: "explore",
-          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} color={color}/>,
+          title: "Explore",
+          tabBarIcon: ({ color }) => <FontAwesome name="home" size={28} color={color}/>,
         }}
       />
       <Tabs.Screen

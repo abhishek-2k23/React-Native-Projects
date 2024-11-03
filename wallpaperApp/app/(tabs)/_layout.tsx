@@ -8,21 +8,21 @@ export default function Layout() {
         name="index"
         options={{
           title: "For you",
-          tabBarIcon: ({ color }) => <FontAwesome name="home" size={28} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="home" size={28} color={color}/>,
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
           title: "explore",
-          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} color={color}/>,
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
           title: "account",
-          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} />,
+          tabBarIcon: ({ color }) => <FontAwesome name="cog" size={28} color={color}/>,
         }}
       />
     </Tabs>

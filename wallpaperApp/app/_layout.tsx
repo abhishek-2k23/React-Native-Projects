@@ -1,11 +1,7 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native"
 import { Stack } from "expo-router"
-import { useColorScheme } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const Layout = () => {
-  const colorScheme = useColorScheme();
   return (
     <GestureHandlerRootView>
       

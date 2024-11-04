@@ -1,21 +1,14 @@
 import { View, Button } from "react-native"
 import React, { useState } from "react"
 import DownloadPhoto from "@/components/src/DownloadPhoto"
+import SplitView from "@/components/src/SplitView";
+import useSuggested from "@/hooks/useSuggested";
 
 const Suggested = () => {
-  const [showDownloadPhoto, setShowDownloadPhoto] = useState(false)
-
+  const wallpapers = useSuggested();
   return (
-    <View style={{ flex: 1 }}>
-      <Button
-        onPress={() => setShowDownloadPhoto(true)}
-        title="Download Photo"
-      />
 
-      {showDownloadPhoto && (
-        <DownloadPhoto onClose={() => setShowDownloadPhoto(false)} />
-      )}
-    </View>
+      <SplitView wallpapers={wallpapers}/>
   )
 }
 

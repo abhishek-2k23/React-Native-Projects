@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import useLiked from '@/hooks/useLiked';
+import SplitView from '@/components/src/SplitView';
 
 const Liked = () => {
+  const wallpapers = useLiked();
   return (
-    <View>
-      <Text>liked</Text>
-    </View>
+
+      <SplitView wallpapers={wallpapers}/>
   )
 }
 

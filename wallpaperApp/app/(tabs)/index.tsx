@@ -1,16 +1,23 @@
 import ParallaxScrollView from "@/components/ParallaxScrollView"
+import DownloadPhoto from "@/components/src/DownloadPhoto"
 import ImageCard from "@/components/src/ImageCard"
+import SplitView from "@/components/src/SplitView"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import useWallpaper, { Wallpaper } from "@/hooks/useWallpaper"
+import { useState } from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 const explore = () => {
   const wallpapers = useWallpaper()
+  const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(
+    null,
+  )
   return (
     <ThemedView style={{ flex: 1 }}>
+      {/* //ParallaxScrollView with a single image */}
       <ParallaxScrollView
         headerBackgroundColor={{ dark: "black", light: "white" }}
         headerImage={
@@ -20,27 +27,11 @@ const explore = () => {
           />
         }
       >
-        <ThemedView style={styles.container}>
-          <ThemedView style={styles.innerContainer}>
-            <FlatList
-              data={wallpapers.filter((_, index) => index % 2 === 0)}
-              renderItem={({ item }) => (
-                  <ThemedView style={styles.imageContainer}><ImageCard wallpaper={item} /></ThemedView>
-              )}
-              keyExtractor={(item) => item.name}
-            />
-          </ThemedView>
-          <ThemedView style={styles.innerContainer}>
-            <FlatList
-              data={wallpapers.filter((_, index) => index % 2 === 1)}
-              renderItem={({ item }) => (
-                <ThemedView style={styles.imageContainer}><ImageCard wallpaper={item} /></ThemedView>
-              )}
-              keyExtractor={(item) => item.name}
-            />
-          </ThemedView>
-        </ThemedView>
+        {/* //Wallpapers */}
+        <SplitView wallpapers={wallpapers} />
+        
       </ParallaxScrollView>
+      
     </ThemedView>
   )
 }

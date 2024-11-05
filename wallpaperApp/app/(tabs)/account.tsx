@@ -4,6 +4,7 @@ import { Colors } from "@/constants/Colors"
 import { FontAwesome, Ionicons } from "@expo/vector-icons"
 import { Link } from "expo-router"
 import {
+  Appearance,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -19,131 +20,116 @@ const account = () => {
   const themeArray = ["system", "light", "dark"]
   return (
     <ScrollView>
-      
-    <ThemedView style={styles.container}>
-      {/* top bar  */}
-      <ThemedView style={{ flexDirection: "column", gap: 2 }}>
-        <ThemedText style={styles.bigText}>Panel</ThemedText>
-        <ThemedText>Sign in to save your data</ThemedText>
-      </ThemedView>
-
-      {/* signin buttons */}
-      <ThemedView style={styles.authButtons}>
-        <AuthButton
-          label="Google"
-          Logo={
-            <Ionicons
-              name="logo-google"
-              size={20}
-              color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-            />
-          }
-        />
-        <AuthButton
-          label="Apple"
-          Logo={
-            <Ionicons
-              name="logo-apple"
-              size={20}
-              color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-            />
-          }
-        />
-      </ThemedView>
-
-      {/* settings  */}
-      <ThemedView>
-        <ThemedText style={styles.bigText}>Setting</ThemedText>
-        <ThemedText>Choose your Theme</ThemedText>
-      </ThemedView>
-
-      {/* theme setting box */}
-      <ThemedView style={styles.themeContainer}>
-        <ThemedView
-          style={[
-            styles.themeBox,
-            { borderColor: theme === "light" ? "black" : "white" },
-          ]}
-        >
-          <ThemedText>System</ThemedText>
+      <ThemedView style={styles.container}>
+        {/* top bar  */}
+        <ThemedView style={{ flexDirection: "column", gap: 2 }}>
+          <ThemedText style={styles.bigText}>Panel</ThemedText>
+          <ThemedText>Sign in to save your data</ThemedText>
         </ThemedView>
-        <ThemedView
-          style={[
-            styles.themeBox,
-            { borderColor: theme === "light" ? "black" : "white" },
-          ]}
-        >
-          <ThemedText>Light</ThemedText>
-        </ThemedView>
-        <ThemedView
-          style={[
-            styles.themeBox,
-            { borderColor: theme === "light" ? "black" : "white" },
-          ]}
-        >
-          <ThemedText>Dark</ThemedText>
-        </ThemedView>
-      </ThemedView>
 
-      <ThemedText style={{ fontSize: 20 }}>App Icon</ThemedText>
-      {/* app icon setting  */}
-      <ThemedView style={styles.themeContainer}>
-        <FlatList
-          horizontal
-          data={[1, 2, 3, 4]}
-          keyExtractor={(item) => item?.toString()}
-          renderItem={({ item }) => (
-            <ThemedView
-              style={[
-                styles.themeBox,
-                {
-                  borderColor: theme === "light" ? "black" : "white",
-                  marginHorizontal: 10,
-                },
-              ]}
-            >
-              <ThemedText>{item}</ThemedText>
-            </ThemedView>
-          )}
-        />
-      </ThemedView>
-
-      {/* app copyright text  */}
-      <ThemedView
-        style={{
-          width: "100%",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ThemedText style={{ flexDirection: "row", gap: 10 }}>
-          <FontAwesome
-            name="copyright"
-            size={16}
-            color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+        {/* signin buttons */}
+        <ThemedView style={styles.authButtons}>
+          <AuthButton
+            label="Google"
+            Logo={
+              <Ionicons
+                name="logo-google"
+                size={20}
+                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+              />
+            }
           />
-          <ThemedText> 2024,</ThemedText>
-        </ThemedText>
-        <ThemedText>Pannel Wallpaper Mobile APP LLC.</ThemedText>
-      </ThemedView>
+          <AuthButton
+            label="Apple"
+            Logo={
+              <Ionicons
+                name="logo-apple"
+                size={20}
+                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+              />
+            }
+          />
+        </ThemedView>
 
-      {/* About section  */}
-      <ThemedView>
+        {/* settings  */}
+        <ThemedView>
+          <ThemedText style={styles.bigText}>Setting</ThemedText>
+          <ThemedText>Choose your Theme</ThemedText>
+        </ThemedView>
 
-        <ThemedText style={styles.bigText}>
-          About
-        </ThemedText>
-        <FlatList
-          data={['account', 'privacy policy', 'terms of services', 'licences','version']}
-          keyExtractor={item=> item}
-          renderItem={({item}) => (
-              <ThemedText style={{textTransform: 'capitalize', marginTop: 20}}>{item}</ThemedText>
-          )}
+        {/* theme setting box */}
+        <ThemedView style={styles.themeContainer}>
+          <ThemeBox name="system" theme={theme} colorScheme={null} />
+          <ThemeBox name="light" theme={theme} colorScheme={"light"} />
+          <ThemeBox name="dark" theme={theme} colorScheme={"dark"} />
+        </ThemedView>
+
+        <ThemedText style={{ fontSize: 20 }}>App Icon</ThemedText>
+        {/* app icon setting  */}
+        <ThemedView style={styles.themeContainer}>
+          <FlatList
+            horizontal
+            data={[1, 2, 3, 4]}
+            keyExtractor={(item) => item?.toString()}
+            renderItem={({ item }) => (
+              <ThemedView
+                style={[
+                  styles.themeBox,
+                  {
+                    borderColor: theme === "light" ? "black" : "white",
+                    marginHorizontal: 10,
+                  },
+                ]}
+              >
+                <ThemedText>{item}</ThemedText>
+              </ThemedView>
+            )}
+          />
+        </ThemedView>
+
+        {/* app copyright text  */}
+        <ThemedView
+          style={{
+            width: "100%",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ThemedText style={{ flexDirection: "row", gap: 10 }}>
+            <FontAwesome
+              name="copyright"
+              size={16}
+              color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+            />
+            <ThemedText> 2024,</ThemedText>
+          </ThemedText>
+          <ThemedText>Pannel Wallpaper Mobile APP LLC.</ThemedText>
+        </ThemedView>
+
+        {/* About section  */}
+        <ThemedView>
+          <ThemedText style={styles.bigText}>About</ThemedText>
+          <FlatList
+            data={[
+              "account",
+              "privacy policy",
+              "terms of services",
+              "licences",
+              "version",
+            ]}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <ThemedText
+                style={{ textTransform: "capitalize", marginTop: 20 }}
+              >
+                {item}
+              </ThemedText>
+            )}
           />
           <ThemedText> 1.0.0 </ThemedText>
+        </ThemedView>
       </ThemedView>
-    </ThemedView>
     </ScrollView>
   )
 }
@@ -151,16 +137,54 @@ const account = () => {
 export function AuthButton({ label, Logo }: { label: string; Logo: any }) {
   const theme = useColorScheme() ?? "light"
   return (
-    <ThemedView
-      style={[
-        styles.downloadButton,
-        { borderWidth: 1, borderColor: theme === "dark" ? "grey" : "black" },
-      ]}
-    >
+    <ThemedView style={[styles.downloadButton]}>
       {Logo}
       <ThemedText>{label}</ThemedText>
     </ThemedView>
   )
+}
+
+export function ThemeBox({
+  name,
+  theme,
+  colorScheme,
+}: {
+  name: string;
+  theme: 'light' | 'dark' | 'system';
+  colorScheme: "light" | "dark" | null;
+}) {
+  // Detect the current system color scheme for system theme handling
+  const systemColorScheme = Appearance.getColorScheme();
+  const isActiveTheme = (theme === 'system' && systemColorScheme === colorScheme) || theme === colorScheme;
+
+  return (
+    <Pressable onPress={() => {
+      Appearance.setColorScheme(colorScheme);
+    }}>
+      <ThemedView
+        style={[
+          styles.themeBox,
+          { borderColor: theme === "light" ? "black" : "white" },
+          {
+            backgroundColor: isActiveTheme
+              ? theme === 'dark'
+                ? Colors.light.background
+                : Colors.dark.background
+              : "transparent"
+          }
+        ]}
+      >
+        <ThemedText
+          style={{
+            textTransform: "capitalize",
+            color: isActiveTheme && theme === 'light' ? Colors.dark.text : Colors.light.text
+          }}
+        >
+          {name}
+        </ThemedText>
+      </ThemedView>
+    </Pressable>
+  );
 }
 export default account
 

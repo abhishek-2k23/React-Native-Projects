@@ -1,23 +1,17 @@
+import About from "@/components/src/account/about/About"
+import AppInfo from "@/components/src/account/AppInfo"
+import AuthButtonProvider from "@/components/src/account/AuthButton/AuthButtonProvider"
+import IconBoxes from "@/components/src/account/icon-setting/IconBoxes"
+import ThemeBoxProvider from "@/components/src/account/theme-setting/ThemeBoxProvider"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { Colors } from "@/constants/Colors"
-import { FontAwesome, Ionicons } from "@expo/vector-icons"
-import { Link } from "expo-router"
 import {
-  Appearance,
-  Pressable,
   ScrollView,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
-import { SafeAreaView } from "react-native-safe-area-context"
 
 const account = () => {
-  const theme = useColorScheme() ?? "light"
-  const themeArray = ["system", "light", "dark"]
+  
   return (
     <ScrollView>
       <ThemedView style={styles.container}>
@@ -28,28 +22,7 @@ const account = () => {
         </ThemedView>
 
         {/* signin buttons */}
-        <ThemedView style={styles.authButtons}>
-          <AuthButton
-            label="Google"
-            Logo={
-              <Ionicons
-                name="logo-google"
-                size={20}
-                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-              />
-            }
-          />
-          <AuthButton
-            label="Apple"
-            Logo={
-              <Ionicons
-                name="logo-apple"
-                size={20}
-                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-              />
-            }
-          />
-        </ThemedView>
+          <AuthButtonProvider />
 
         {/* settings  */}
         <ThemedView>
@@ -58,134 +31,23 @@ const account = () => {
         </ThemedView>
 
         {/* theme setting box */}
-        <ThemedView style={styles.themeContainer}>
-          <ThemeBox name="system" theme={theme} colorScheme={null} />
-          <ThemeBox name="light" theme={theme} colorScheme={"light"} />
-          <ThemeBox name="dark" theme={theme} colorScheme={"dark"} />
-        </ThemedView>
+          <ThemeBoxProvider />
 
-        <ThemedText style={{ fontSize: 20 }}>App Icon</ThemedText>
         {/* app icon setting  */}
-        <ThemedView style={styles.themeContainer}>
-          <FlatList
-            horizontal
-            data={[1, 2, 3, 4]}
-            keyExtractor={(item) => item?.toString()}
-            renderItem={({ item }) => (
-              <ThemedView
-                style={[
-                  styles.themeBox,
-                  {
-                    borderColor: theme === "light" ? "black" : "white",
-                    marginHorizontal: 10,
-                  },
-                ]}
-              >
-                <ThemedText>{item}</ThemedText>
-              </ThemedView>
-            )}
-          />
-        </ThemedView>
+        <ThemedText style={{ fontSize: 20 }}>App Icon</ThemedText>
+        <IconBoxes />
 
         {/* app copyright text  */}
-        <ThemedView
-          style={{
-            width: "100%",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <ThemedText style={{ flexDirection: "row", gap: 10 }}>
-            <FontAwesome
-              name="copyright"
-              size={16}
-              color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
-            />
-            <ThemedText> 2024,</ThemedText>
-          </ThemedText>
-          <ThemedText>Pannel Wallpaper Mobile APP LLC.</ThemedText>
-        </ThemedView>
+          <AppInfo />
 
         {/* About section  */}
-        <ThemedView>
-          <ThemedText style={styles.bigText}>About</ThemedText>
-          <FlatList
-            data={[
-              "account",
-              "privacy policy",
-              "terms of services",
-              "licences",
-              "version",
-            ]}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-              <ThemedText
-                style={{ textTransform: "capitalize", marginTop: 20 }}
-              >
-                {item}
-              </ThemedText>
-            )}
-          />
-          <ThemedText> 1.0.0 </ThemedText>
-        </ThemedView>
+          <About />
       </ThemedView>
     </ScrollView>
   )
 }
 
-export function AuthButton({ label, Logo }: { label: string; Logo: any }) {
-  const theme = useColorScheme() ?? "light"
-  return (
-    <ThemedView style={[styles.downloadButton]}>
-      {Logo}
-      <ThemedText>{label}</ThemedText>
-    </ThemedView>
-  )
-}
 
-export function ThemeBox({
-  name,
-  theme,
-  colorScheme,
-}: {
-  name: string;
-  theme: 'light' | 'dark' | 'system';
-  colorScheme: "light" | "dark" | null;
-}) {
-  // Detect the current system color scheme for system theme handling
-  const systemColorScheme = Appearance.getColorScheme();
-  const isActiveTheme = (theme === 'system' && systemColorScheme === colorScheme) || theme === colorScheme;
-
-  return (
-    <Pressable onPress={() => {
-      Appearance.setColorScheme(colorScheme);
-    }}>
-      <ThemedView
-        style={[
-          styles.themeBox,
-          { borderColor: theme === "light" ? "black" : "white" },
-          {
-            backgroundColor: isActiveTheme
-              ? theme === 'dark'
-                ? Colors.light.background
-                : Colors.dark.background
-              : "transparent"
-          }
-        ]}
-      >
-        <ThemedText
-          style={{
-            textTransform: "capitalize",
-            color: isActiveTheme && theme === 'light' ? Colors.dark.text : Colors.light.text
-          }}
-        >
-          {name}
-        </ThemedText>
-      </ThemedView>
-    </Pressable>
-  );
-}
 export default account
 
 const styles = StyleSheet.create({
@@ -196,31 +58,6 @@ const styles = StyleSheet.create({
   },
   bigText: {
     fontSize: 25,
-  },
-  downloadButton: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 5,
-    borderRadius: 10,
-    paddingVertical: 10,
-  },
-  authButtons: {
-    paddingVertical: 30,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "grey",
-    borderRadius: 5,
-    gap: 7,
-  },
-  themeContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    gap: 10,
-    flexWrap: "wrap",
   },
   themeBox: {
     borderWidth: 1,

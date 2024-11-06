@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet, useColorScheme } from "react-native"
 import { ThemedView } from "../ThemedView"
 import ImageCard from "./ImageCard"
 import { Wallpaper } from "@/hooks/useWallpaper"
@@ -6,41 +6,21 @@ import { useState } from "react"
 import DownloadPhoto from "./DownloadPhoto"
 
 const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
-  const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(
-    null,
-  )
+  const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(null)
+  const theme = useColorScheme() ?? 'light';
+
   return (
     <ThemedView style={{flex:1}}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.innerContainer}>
-          <FlatList
-            data={wallpapers.filter((_, index) => index % 2 === 0)}
-            renderItem={({ item }) => (
-              <ThemedView style={styles.imageContainer}>
-                <ImageCard
-                  onPress={() => setSelectedWallpaper(item)}
-                  wallpaper={item}
-                />
-              </ThemedView>
-            )}
-            keyExtractor={(item) => item.name}
-          />
-        </ThemedView>
-        <ThemedView style={styles.innerContainer}>
-          <FlatList
-            data={wallpapers.filter((_, index) => index % 2 === 1)}
-            renderItem={({ item }) => (
-              <ThemedView style={styles.imageContainer}>
-                <ImageCard
-                  wallpaper={item}
-                  onPress={() => setSelectedWallpaper(item)}
-                />
-              </ThemedView>
-            )}
-            keyExtractor={(item) => item.name}
-          />
-        </ThemedView>
-      </ThemedView>
+      <FlatList
+        data={wallpapers}
+        keyExtractor={(item, index) => item?.toString() + index}
+        numColumns={2}  // Set the number of columns you want in your grid
+        renderItem={({ item }) => (
+          <ThemedView style={styles.imageContainer}> 
+            <ImageCard onPress={() => setSelectedWallpaper(item)} wallpaper={item} />
+          </ThemedView>
+        )}
+      />
       {selectedWallpaper && (
         <DownloadPhoto
           wallpaper={selectedWallpaper}
@@ -50,18 +30,25 @@ const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
     </ThemedView>
   )
 }
+
 const styles = StyleSheet.create({
   container: { 
-    flex: 1, 
-    flexDirection: "row",
-    flexWrap: "wrap", 
-},
-  innerContainer: {
     flex: 1,
-    padding: 10,
+    width: '100%'
   },
   imageContainer: {
-    paddingVertical: 10,
+    width: '50%',
+    padding: 10,
+  },
+  iconBox: {
+    borderWidth: 1,
+    paddingHorizontal: 30,
+    height: 50,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
   },
 })
-export default SplitView
+
+export default SplitView;

@@ -25,7 +25,7 @@ export default function ImageCard({
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    height: 250,
+    height: 300,
     borderRadius: 10,
   },
   label: {

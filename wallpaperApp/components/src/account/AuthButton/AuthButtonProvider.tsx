@@ -14,7 +14,7 @@ export default function AuthButtonProvider(){
               <Ionicons
                 name="logo-google"
                 size={20}
-                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+                color={Colors[theme].icon}
               />
             }
           />
@@ -24,7 +24,7 @@ export default function AuthButtonProvider(){
               <Ionicons
                 name="logo-apple"
                 size={20}
-                color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+                color={Colors[theme].icon}
               />
             }
           />

@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/ThemedText'
 import { ThemedView } from '@/components/ThemedView'
+import { Colors } from '@/constants/Colors'
 import React from 'react'
 import { StyleSheet, useColorScheme } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
@@ -17,7 +18,7 @@ const IconBoxes = () => {
                 style={[
                   styles.iconBox,
                   {
-                    borderColor: theme === "light" ? "black" : "white",
+                    borderColor: Colors[theme].background,
                     marginHorizontal: 10,
                   },
                 ]}

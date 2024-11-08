@@ -18,8 +18,8 @@ export function ThemeBox({
   }) {
     // Determine if this box is selected
     const isSelected = themeName === selectedTheme;
-    const backgroundColor = isSelected ? (themeName === "dark" ? Colors.dark.background : Colors.light.background) : "transparent";
-    const textColor = themeName === "light" ? Colors.dark.text : Colors.light.text;
+    const backgroundColor = isSelected ? (Colors[theme].background) : "transparent";
+    const textColor = Colors[theme].text;
   
     return (
       <Pressable onPress={onSelect}>
@@ -28,7 +28,7 @@ export function ThemeBox({
             styles.themeBox,
             {
               backgroundColor,
-              borderColor: theme === "dark" ? Colors.light.background : Colors.dark.background,
+              borderColor: Colors[theme].background,
             },
           ]}
         >

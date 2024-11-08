@@ -20,7 +20,7 @@ const AppInfo = () => {
             <FontAwesome
               name="copyright"
               size={16}
-              color={theme === "light" ? Colors.light.icon : Colors.dark.icon}
+              color={Colors[theme].icon}
             />
             <ThemedText> 2024,</ThemedText>
           </ThemedText>

@@ -1,9 +1,10 @@
-import { FlatList, StyleSheet, useColorScheme } from "react-native"
+import { FlatList, StyleSheet, useColorScheme, View } from "react-native"
 import { ThemedView } from "../ThemedView"
 import ImageCard from "./ImageCard"
 import { Wallpaper } from "@/hooks/useWallpaper"
 import { useState } from "react"
 import DownloadPhoto from "./DownloadPhoto"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
   const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(null)
@@ -22,10 +23,12 @@ const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
         )}
       />
       {selectedWallpaper && (
-        <DownloadPhoto
-          wallpaper={selectedWallpaper}
-          onClose={() => setSelectedWallpaper(null)}
-        />
+        <View style={StyleSheet.absoluteFill}>
+          <DownloadPhoto
+            wallpaper={selectedWallpaper}
+            onClose={() => setSelectedWallpaper(null)}
+          />
+        </View>
       )}
     </ThemedView>
   )

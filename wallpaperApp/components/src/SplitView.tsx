@@ -5,6 +5,7 @@ import { Wallpaper } from "@/hooks/useWallpaper"
 import { useState } from "react"
 import DownloadPhoto from "./DownloadPhoto"
 import { SafeAreaView } from "react-native-safe-area-context"
+import BottomSheetNew from "./BottomSheetNew"
 
 const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
   const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(null)
@@ -24,8 +25,7 @@ const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
       />
       {selectedWallpaper && (
           <DownloadPhoto
-            wallpaper={selectedWallpaper}
-            onClose={() => setSelectedWallpaper(null)}
+          onClose={() => setSelectedWallpaper(null)} isVisible={selectedWallpaper !== null} wallpaper={selectedWallpaper}
           />
       )}
     </ThemedView>

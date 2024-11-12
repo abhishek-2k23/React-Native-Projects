@@ -58,16 +58,13 @@ export default BottomSheetContent
 
 const styles = StyleSheet.create({
   contentContainer: {
-    flex: 1,
+    height: '100%',
     gap: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
   },
   image: {
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
     objectFit: "cover",
     height: "80%",
+    resizeMode: 'cover'
   },
   topBar: {
     position: "absolute",

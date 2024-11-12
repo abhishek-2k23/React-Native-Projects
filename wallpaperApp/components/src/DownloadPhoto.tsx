@@ -35,6 +35,4 @@ const DownloadPhoto = ({
   )
 }
 
-
-
 export default DownloadPhoto

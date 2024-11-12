@@ -23,12 +23,10 @@ const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
         )}
       />
       {selectedWallpaper && (
-        <View style={StyleSheet.absoluteFill}>
           <DownloadPhoto
             wallpaper={selectedWallpaper}
             onClose={() => setSelectedWallpaper(null)}
           />
-        </View>
       )}
     </ThemedView>
   )

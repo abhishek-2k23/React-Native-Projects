@@ -4,16 +4,17 @@ import ImageCard from "./ImageCard"
 import { Wallpaper } from "@/hooks/useWallpaper"
 import { useState } from "react"
 import DownloadPhoto from "./DownloadPhoto"
-import { SafeAreaView } from "react-native-safe-area-context"
-import BottomSheetNew from "./BottomSheetNew"
 
-const SplitView = ({ wallpapers }: { wallpapers: Wallpaper[] }) => {
+const SplitView = ({ wallpapers, setYOffSet }: { wallpapers: Wallpaper[]; setYOffSet: (yOffSet: number) => void }) => {
   const [selectedWallpaper, setSelectedWallpaper] = useState<null | Wallpaper>(null)
   const theme = useColorScheme() ?? 'light';
 
   return (
-    <ThemedView style={{flex:1}}>
+    <ThemedView style={{flex:1, zIndex: 2}}>
       <FlatList
+        onScroll={(e) => {
+          setYOffSet(e.nativeEvent.contentOffset.y/1)
+        }}
         data={wallpapers}
         keyExtractor={(item, index) => item?.toString() + index}
         numColumns={2}  // Set the number of columns you want in your grid

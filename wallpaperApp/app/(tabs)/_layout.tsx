@@ -1,4 +1,3 @@
-import { ThemedText } from "@/components/ThemedText"
 import { Colors } from "@/constants/Colors"
 import { FontAwesome } from "@expo/vector-icons"
 import { Tabs } from "expo-router"
@@ -22,7 +21,7 @@ export default function Layout() {
           options={{
             title: "foryou",
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="cog" size={28} color={color} />
+              <FontAwesome name="podcast" size={28} color={color} />
             ),
           }}
         />
@@ -40,7 +39,7 @@ export default function Layout() {
           options={{
             title: "account",
             tabBarIcon: ({ color }) => (
-              <FontAwesome name="cog" size={28} color={color} />
+              <FontAwesome name="user" size={28} color={color} />
             ),
           }}
         />

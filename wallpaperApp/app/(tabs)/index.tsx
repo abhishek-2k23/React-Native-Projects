@@ -1,22 +1,12 @@
-import ParallaxScrollView from "@/components/ParallaxScrollView"
-import DownloadPhoto from "@/components/src/DownloadPhoto"
-import ImageCard from "@/components/src/ImageCard"
 import SplitView from "@/components/src/SplitView"
-import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import useCrousel from "@/hooks/useCrousel"
-import useWallpaper, { Wallpaper } from "@/hooks/useWallpaper"
+import useWallpaper from "@/hooks/useWallpaper"
 import { LinearGradient } from "expo-linear-gradient"
 import { useState } from "react"
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native"
-import Animated, {
-  interpolate,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useScrollViewOffset,
-} from "react-native-reanimated"
+import { Dimensions, Image, StyleSheet, Text } from "react-native"
+import Animated from "react-native-reanimated"
 import Carousel from "react-native-reanimated-carousel"
-import { SafeAreaView } from "react-native-safe-area-context"
 
 const explore = () => {
   const wallpapers = useWallpaper()
@@ -24,15 +14,7 @@ const explore = () => {
   const width = Dimensions.get("window").width
   const [yOffSet, setYOffSet] = useState(0)
 
-  const headerAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          scale: interpolate(yOffSet, [-TOPBAR_HEIGHT, 0, TOPBAR_HEIGHT], [1.5, 1, 1]),
-        },
-      ],
-    };
-  });
+ 
   const TOPBAR_HEIGHT = 250
   return (
     <ThemedView style={{ flex: 1 }}>

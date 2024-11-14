@@ -1,11 +1,24 @@
-import { StyleSheet, useColorScheme } from "react-native"
+import { Pressable, StyleSheet, useColorScheme } from "react-native"
 import { ThemedView } from "../ThemedView"
 import { Ionicons } from "@expo/vector-icons"
 import { ThemedText } from "../ThemedText"
-
-export function DownloadButton() {
+import { TouchableOpacity } from "react-native-gesture-handler"
+import * as expomedia from 'expo-media-library';
+export function DownloadButton({url} : {url: string}) {
     const theme = useColorScheme() ?? "light"
     return (
+      <Pressable onPress={async () => {
+        const response  = await expomedia.getPermissionsAsync(true);
+        if(response.granted){
+          const downloadResonse = await expomedia.saveToLibraryAsync(url);
+          console.log('download completed', downloadResonse)
+        }else{
+          console.log('response not granted')
+          console.log(response)
+        }
+      }}>
+
+      
       <ThemedView
         style={[
           styles.downloadButton,
@@ -23,6 +36,7 @@ export function DownloadButton() {
           Download
         </ThemedText>
       </ThemedView>
+      </Pressable>
     )
   }
   

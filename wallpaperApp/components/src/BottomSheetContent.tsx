@@ -48,7 +48,7 @@ const BottomSheetContent = ({
 
       {/* download button  */}
       <ThemedView style={{ flexDirection: "row", justifyContent: "center" }}>
-        <DownloadButton />
+        <DownloadButton url={wallpaper?.url}/>
       </ThemedView>
     </ThemedView>
   )

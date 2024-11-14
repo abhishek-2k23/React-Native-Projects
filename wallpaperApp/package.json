@@ -43,7 +43,8 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-web": "~0.19.10",
     "zustand": "^5.0.1",
-    "expo-media-library": "~16.0.5"
+    "expo-media-library": "~16.0.5",
+    "expo-file-system": "~17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

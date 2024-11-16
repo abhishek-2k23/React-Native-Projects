@@ -4,11 +4,13 @@ import Liked from "../liked"
 import Library from "../library"
 import { Colors } from "@/constants/Colors"
 import { useColorScheme } from "react-native"
+import ThemedSafeAreaView from "@/components/ThemedSafeAreaView"
 
 const Tab = createMaterialTopTabNavigator()
 export default function ForYouTabs() {
   const theme = useColorScheme() ?? "light"
   return (
+    <ThemedSafeAreaView style={{flex:1}}>
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: Colors[theme].tint,
@@ -23,5 +25,6 @@ export default function ForYouTabs() {
       <Tab.Screen name="Liked" component={Liked} />
       <Tab.Screen name="Library" component={Library} />
     </Tab.Navigator>
+    </ThemedSafeAreaView>
   )
 }

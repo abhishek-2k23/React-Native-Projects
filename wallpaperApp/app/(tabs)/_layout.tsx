@@ -1,14 +1,15 @@
+import ThemedSafeAreaView from "@/components/ThemedSafeAreaView"
+import { ThemedView } from "@/components/ThemedView"
 import { Colors } from "@/constants/Colors"
 import { FontAwesome } from "@expo/vector-icons"
 import { Tabs } from "expo-router"
-import { Text, useColorScheme } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { useColorScheme } from "react-native"
 
 
 export default function Layout() {
   const theme = useColorScheme() ?? "light"
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <ThemedView style={{ flex: 1 }}>
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[theme].tint,
@@ -44,6 +45,6 @@ export default function Layout() {
           }}
         />
       </Tabs>
-    </SafeAreaView>
+    </ThemedView>
   )
 }

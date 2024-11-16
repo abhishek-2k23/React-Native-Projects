@@ -3,6 +3,7 @@ import AppInfo from "@/components/src/account/AppInfo"
 import AuthButtonProvider from "@/components/src/account/AuthButton/AuthButtonProvider"
 import IconBoxes from "@/components/src/account/icon-setting/IconBoxes"
 import ThemeBoxProvider from "@/components/src/account/theme-setting/ThemeBoxProvider"
+import ThemedSafeAreaView from "@/components/ThemedSafeAreaView"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import {
@@ -14,7 +15,7 @@ const account = () => {
   
   return (
     <ScrollView>
-      <ThemedView style={styles.container}>
+      <ThemedSafeAreaView style={styles.container}>
         {/* top bar  */}
         <ThemedView style={{ flexDirection: "column", gap: 2 }}>
           <ThemedText style={styles.bigText}>Panel</ThemedText>
@@ -42,7 +43,7 @@ const account = () => {
 
         {/* About section  */}
           <About />
-      </ThemedView>
+      </ThemedSafeAreaView>
     </ScrollView>
   )
 }

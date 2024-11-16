@@ -21,20 +21,19 @@ export function DownloadButton({ url }: { url: string }) {
               console.log("Permission not granted")
             }
           } else {
-            const downloadResonse = await MediaLibrary.saveToLibraryAsync(url)
-            console.log(downloadResonse);
-          }
           console.log(status);
           //download the image
-          const fileUri=  FileSystem.documentDirectory+Date.now().toString()+"_download.jpg";
+          const date = new Date().getTime();
+          const fileUri: string=  FileSystem.documentDirectory+`${date}_download.jpg`;
+          console.log("file uri: ", fileUri);
           const {uri} = await FileSystem.downloadAsync(url,fileUri);
           console.log(uri)
           //save the downloaded image to gallery
-          const asset = await MediaLibrary.createAssetAsync(uri);
+          const asset = await MediaLibrary.createAssetAsync(fileUri);
           console.log("downloaded")
+          }
         } catch (e){
-          console.log("response not granted")
-          console.log(e)
+          console.log("error: ", e)
         }
       }}
     >

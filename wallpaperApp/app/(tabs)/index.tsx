@@ -1,10 +1,11 @@
 import SplitView from "@/components/src/SplitView"
 import { ThemedView } from "@/components/ThemedView"
+import { Colors } from "@/constants/Colors"
 import useCrousel from "@/hooks/useCrousel"
 import useWallpaper from "@/hooks/useWallpaper"
 import { LinearGradient } from "expo-linear-gradient"
 import { useState } from "react"
-import { Dimensions, Image, StyleSheet, Text } from "react-native"
+import { Dimensions, Image, StyleSheet, Text, useColorScheme } from "react-native"
 import Animated from "react-native-reanimated"
 import Carousel from "react-native-reanimated-carousel"
 
@@ -13,9 +14,8 @@ const explore = () => {
   const carousel = useCrousel()
   const width = Dimensions.get("window").width
   const [yOffSet, setYOffSet] = useState(0)
-
- 
-  const TOPBAR_HEIGHT = 250
+  const theme = useColorScheme() ?? 'light';
+  const TOPBAR_HEIGHT = 350
   return (
     <ThemedView style={{ flex: 1 }}>
       {/* //ParallaxScrollView with a single image */}
@@ -29,8 +29,20 @@ const explore = () => {
           onSnapToItem={(index) => console.log("current index:", index)}
           renderItem={({ item }) => (
             <>
+            
               <Image source={{ uri: item?.image }} style={{ height: TOPBAR_HEIGHT}} />
-
+              
+              //top layer gradient when dark screen
+              {theme === 'dark' && <LinearGradient
+                // Background Linear Gradient
+                colors={[`black`, 'transparent']}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: 20,
+                  width: "100%",
+                }}/>}
               <LinearGradient
                 // Background Linear Gradient
                 colors={["transparent", "rgba(0,0,0,0.8)"]}

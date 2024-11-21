@@ -5,6 +5,7 @@ import { ThemedView } from "../ThemedView"
 import { ThemedText } from "../ThemedText"
 import { Ionicons } from "@expo/vector-icons"
 import { Wallpaper } from "@/hooks/useWallpaper"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const BottomSheetContent = ({
   wallpaper,
@@ -13,11 +14,14 @@ const BottomSheetContent = ({
   wallpaper: Wallpaper
   onClose: () => void
 }) => {
+  
+  const inset = useSafeAreaInsets();
+  console.log(typeof inset, inset);
   return (
     <ThemedView style={styles.contentContainer}>
       <Image style={styles.image} source={{ uri: wallpaper.url ?? "" }} />
       {/* top bar on the image  */}
-      <View style={styles.topBar}>
+      <View style={[styles.topBar,{paddingTop: inset.top}]}>
         {/* close icon  */}
         <Pressable onPress={onClose} style={styles.closeIcon}>
           <Ionicons name="close-outline" size={18} color={"black"} />

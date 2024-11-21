@@ -15,8 +15,8 @@ const explore = () => {
   const [yOffSet, setYOffSet] = useState(0)
 
  
-  const TOPBAR_HEIGHT = 250
-  return (
+  const TOPBAR_HEIGHT = 350
+   return (
     <ThemedView style={{ flex: 1 }}>
       {/* //ParallaxScrollView with a single image */}
       <Animated.View style={[{height: Math.max(0, TOPBAR_HEIGHT - yOffSet)}]}>

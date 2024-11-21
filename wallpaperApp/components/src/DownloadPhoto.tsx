@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native"
 import Modal from "react-native-modal"
 import BottomSheetContent from "./BottomSheetContent"
 import { Wallpaper } from "@/hooks/useWallpaper"
+import { useRef } from "react"
+import Toast from "react-native-toast-message"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const DownloadPhoto = ({
   onClose,
@@ -19,7 +22,9 @@ const DownloadPhoto = ({
       onModalHide={onClose}
       onSwipeCancel={onClose}
       onBackButtonPress={onClose}
+      statusBarTranslucent={true}
     >
+      
       <BottomSheetContent wallpaper={wallpaper} onClose={onClose} />
     </Modal>
   )
@@ -36,5 +41,6 @@ const styles = StyleSheet.create({
     height: "100%",
     bottom: 0,
     width: "100%",
+    zIndex: 1,
   },
 })

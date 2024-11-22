@@ -35,7 +35,8 @@
           "savePhotosPermission": "Allow wallpaperApp to save photos.",
           "isAccessMediaLocationEnabled": true
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

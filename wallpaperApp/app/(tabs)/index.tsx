@@ -2,7 +2,9 @@ import SplitView from "@/components/src/SplitView"
 import { ThemedView } from "@/components/ThemedView"
 import useCrousel from "@/hooks/useCrousel"
 import useWallpaper from "@/hooks/useWallpaper"
+import { useUser } from "@clerk/clerk-expo"
 import { LinearGradient } from "expo-linear-gradient"
+import { Redirect } from "expo-router"
 import { useState } from "react"
 import { Dimensions, Image, StyleSheet, Text } from "react-native"
 import Animated from "react-native-reanimated"
@@ -13,7 +15,6 @@ const explore = () => {
   const carousel = useCrousel()
   const width = Dimensions.get("window").width
   const [yOffSet, setYOffSet] = useState(0)
-
  
   const TOPBAR_HEIGHT = 250
   return (

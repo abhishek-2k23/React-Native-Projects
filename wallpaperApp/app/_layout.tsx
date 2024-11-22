@@ -3,7 +3,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { tokenCache } from "@/constants/login/tokenCache";
 import { useColorScheme } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "@/constants/Colors";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,19 +24,20 @@ const Layout = () => {
       <ClerkLoaded>
 
       <StatusBar
-            style={Colors[theme].text} // Adjust content color
-            backgroundColor={Colors[theme].background} // Adjust background color
-            translucent={true}
-          />
+        style={theme === "dark" ? "light" : "dark"}
+        backgroundColor={Colors[theme].background}
+      />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="(nobottombar)/accountInfo"
+          name="/(tabs)/index"
           options={{
             headerShown: true,
             headerTitle: "Account info",
           }}
         />
+        <Stack.Screen name="login/index" ></Stack.Screen>
       </Stack>
+
       </ClerkLoaded>
       </ClerkProvider></SafeAreaView>
       </GestureHandlerRootView>

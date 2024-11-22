@@ -10,12 +10,13 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const account = () => {
   
   return (
     <ScrollView>
-      <ThemedSafeAreaView style={styles.container}>
+      <ThemedView style={styles.container}>
         {/* top bar  */}
         <ThemedView style={{ flexDirection: "column", gap: 2 }}>
           <ThemedText style={styles.bigText}>Panel</ThemedText>
@@ -43,7 +44,7 @@ const account = () => {
 
         {/* About section  */}
           <About />
-      </ThemedSafeAreaView>
+      </ThemedView>
     </ScrollView>
   )
 }

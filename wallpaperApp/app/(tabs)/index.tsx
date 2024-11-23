@@ -5,21 +5,40 @@ import useWallpaper from "@/hooks/useWallpaper"
 import { useUser } from "@clerk/clerk-expo"
 import { LinearGradient } from "expo-linear-gradient"
 import { Redirect } from "expo-router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Dimensions, Image, StyleSheet, Text } from "react-native"
-import Animated from "react-native-reanimated"
+import Animated, { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated"
 import Carousel from "react-native-reanimated-carousel"
+import axiosClient from '../../services/GlobalApi';
+
 
 const explore = () => {
   const wallpapers = useWallpaper()
   const carousel = useCrousel()
   const width = Dimensions.get("window").width
   const [yOffSet, setYOffSet] = useState(0)
- 
   const TOPBAR_HEIGHT = 250
+
+  configureReanimatedLogger({
+    level: ReanimatedLogLevel.warn,
+    strict: false, // Reanimated runs in strict mode by default
+  });
+
+  const {user} = useUser();
+  console.log('user -> ', user?.primaryEmailAddress?.emailAddress);
+  
+  //call the when there is user available
+  useEffect(() => {
+    user && VerifyUser();
+  }, [user])
+
+  const VerifyUser =  async () => {
+     const result = await axiosClient.getUserInfo(user?.primaryEmailAddress?.emailAddress || '')
+     console.log('On verifyUser', result);
+  }
   return (
     <ThemedView style={{ flex: 1 }}>
-      {/* //ParallaxScrollView with a single image */}
+      
       <Animated.View style={[{height: Math.max(0, TOPBAR_HEIGHT - yOffSet)}]}>
         <Carousel
           loop
@@ -27,7 +46,7 @@ const explore = () => {
           autoPlay={true}
           data={carousel}
           scrollAnimationDuration={1000}
-          onSnapToItem={(index) => console.log("current index:", index)}
+          // onSnapToItem={(index) => console.log("current index:", index)}
           renderItem={({ item }) => (
             <>
               <Image source={{ uri: item?.image }} style={{ height: TOPBAR_HEIGHT}} />
@@ -81,3 +100,4 @@ const styles = StyleSheet.create({
   },
 })
 export default explore
+3e4

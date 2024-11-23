@@ -28,11 +28,11 @@ export default function Index() {
     try {
       const { createdSessionId, signIn, signUp, setActive } =
         await startOAuthFlow({
-          redirectUrl: Linking.createURL("/(tabs)/index", { scheme: "myapp" }),
+          redirectUrl: Linking.createURL("/(tabs)", { scheme: "myapp" }),
         })
 
       if (createdSessionId) {
-        // setActive!({ session: createdSessionId })
+        setActive!({ session: createdSessionId })
       } else {
         // Use signIn or signUp for next steps such as MFA
       }

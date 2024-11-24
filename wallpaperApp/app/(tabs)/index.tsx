@@ -32,9 +32,19 @@ const explore = () => {
     user && VerifyUser();
   }, [user])
 
-  const VerifyUser =  async () => {
-     const result = await axiosClient.getUserInfo(user?.primaryEmailAddress?.emailAddress || '')
-     console.log('On verifyUser', result);
+  const VerifyUser =   async () => {
+    try{
+      const result =  await axiosClient.getUserInfo(user?.primaryEmailAddress?.emailAddress || '')
+      console.log('result : ',result.data);
+      if(result.data === 'undefined'){
+        return
+      }else{
+       const res = await axiosClient.createUser({userEmail: user?.primaryEmailAddress?.emailAddress || '', userName: user?.fullName || ''})
+       console.log('create user : ', res);
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
   return (
     <ThemedView style={{ flex: 1 }}>
@@ -43,7 +53,7 @@ const explore = () => {
         <Carousel
           loop
           width={width}
-          autoPlay={true}
+          autoPlay={false}
           data={carousel}
           scrollAnimationDuration={1000}
           // onSnapToItem={(index) => console.log("current index:", index)}

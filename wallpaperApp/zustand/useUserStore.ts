@@ -4,21 +4,21 @@ import { create } from 'zustand';
 interface User {
   userEmail: string;
   userName: string;
-  credits: number;
+  userCredits: number;
 }
 
 // Define the Store interface
 interface UserStore {
-  user: User | null; // Either a user object or null if no user is present
+  userData: User | null; // Either a user object or null if no user is present
   addUser: (newUser: User) => void; // Action to add a user
   removeUser: () => void; // Action to remove the user
 }
 
 // Create the Zustand store
 const useUserStore = create<UserStore>((set) => ({
-  user: null, // Initial state: no user
-  addUser: (newUser) => set({ user: newUser }), // Add a user
-  removeUser: () => set({ user: null }), // Remove the user
+  userData: null, // Initial state: no user
+  addUser: (newUser) => set({ userData: newUser }), // Add a user
+  removeUser: () => set({ userData: null }), // Remove the user
 }));
 
 export default useUserStore;

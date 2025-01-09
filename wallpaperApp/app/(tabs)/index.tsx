@@ -1,96 +1,56 @@
-import SplitView from "@/components/src/SplitView"
-import { ThemedView } from "@/components/ThemedView"
-import useCrousel from "@/hooks/useCrousel"
 import useWallpaper from "@/hooks/useWallpaper"
 import { useUser } from "@clerk/clerk-expo"
-import { LinearGradient } from "expo-linear-gradient"
-import { Redirect } from "expo-router"
 import { useEffect, useState } from "react"
-import { Dimensions, Image, StyleSheet, Text } from "react-native"
-import Animated, { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated"
-import Carousel from "react-native-reanimated-carousel"
-import axiosClient from '../../services/GlobalApi';
-
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native"
+import axiosClient from "../../services/GlobalApi"
+import useUserStore from "@/zustand/useUserStore"
+import Header from "@/components/src/home/Header"
+import Body from "@/components/src/home/Body"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { ThemedView } from "@/components/ThemedView"
 
 const explore = () => {
-  const wallpapers = useWallpaper()
-  const carousel = useCrousel()
-  const width = Dimensions.get("window").width
-  const [yOffSet, setYOffSet] = useState(0)
-  const TOPBAR_HEIGHT = 250
 
-  configureReanimatedLogger({
-    level: ReanimatedLogLevel.warn,
-    strict: false, // Reanimated runs in strict mode by default
-  });
+  //using zustand
+  const { userData, addUser, removeUser } = useUserStore()
 
-  const {user} = useUser();
-  console.log('user -> ', user?.primaryEmailAddress?.emailAddress);
-  
+  //user on clerk session
+  const { user } = useUser()
+
   //call the when there is user available
   useEffect(() => {
-    user && VerifyUser();
+    user && VerifyUser()
   }, [user])
 
-  const VerifyUser =   async () => {
-    try{
-      const result =  await axiosClient.getUserInfo(user?.primaryEmailAddress?.emailAddress || '')
-      console.log('result : ',result.data);
-      if(result.data === 'undefined'){
+  const VerifyUser = async () => {
+    try {
+      const result = await axiosClient.getUserInfo(
+        user?.primaryEmailAddress?.emailAddress || "",
+      )
+      if (result?.data?.data.length !== 0) {
+        const { userEmail, userName, userCredits } = result.data.data[0]
+        addUser({ userEmail, userName, userCredits })
+        console.log('userData-> ',userData);
         return
-      }else{
-       const res = await axiosClient.createUser({userEmail: user?.primaryEmailAddress?.emailAddress || '', userName: user?.fullName || ''})
-       console.log('create user : ', res);
+      } else {
+        const res = await axiosClient.createUser({
+          userEmail: user?.primaryEmailAddress?.emailAddress || "",
+          userName: user?.fullName || "",
+        })
+        addUser({userEmail: user?.primaryEmailAddress?.emailAddress || '', userName: user?.fullName || '', userCredits:10 })
       }
-    }catch(e){
-      console.log(e);
+    } catch (e) {
+      console.log("Error in user signup : ",e)
     }
   }
   return (
-    <ThemedView style={{ flex: 1 }}>
+    <ThemedView style={{flex:1}}>
       
-      <Animated.View style={[{height: Math.max(0, TOPBAR_HEIGHT - yOffSet)}]}>
-        <Carousel
-          loop
-          width={width}
-          autoPlay={false}
-          data={carousel}
-          scrollAnimationDuration={1000}
-          // onSnapToItem={(index) => console.log("current index:", index)}
-          renderItem={({ item }) => (
-            <>
-              <Image source={{ uri: item?.image }} style={{ height: TOPBAR_HEIGHT}} />
+      {/* Header  */}
+      <Header />
 
-              <LinearGradient
-                // Background Linear Gradient
-                colors={["transparent", "rgba(0,0,0,0.8)"]}
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  height: TOPBAR_HEIGHT / 3,
-                  width: "100%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 30,
-                    fontWeight: "600",
-                    textAlign: "center",
-                    height: TOPBAR_HEIGHT / 3,
-                    textAlignVertical: "center",
-                  }}
-                >
-                  {item?.title}
-                </Text>
-              </LinearGradient>
-            </>
-          )}
-        />
-      </Animated.View>
-
-      {/* //Wallpapers */}
-      <SplitView wallpapers={wallpapers} setYOffSet={setYOffSet} />
+      {/* Body  */}
+      <Body />
     </ThemedView>
   )
 }
